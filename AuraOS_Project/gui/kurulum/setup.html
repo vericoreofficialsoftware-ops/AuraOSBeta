@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>AuraOS v1.0 Setup</title>
+    <style>
+        body {
+            background: #000;
+            color: #00f2ff;
+            font-family: 'Consolas', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .kurulum_kapsayici {
+            width: 600px;
+            padding: 30px;
+            border: 2px solid #00f2ff;
+            background: rgba(0, 242, 255, 0.02);
+            box-shadow: 0 0 50px rgba(0, 242, 255, 0.1);
+            text-align: center;
+        }
+
+        .progress_bar {
+            width: 100%;
+            height: 25px;
+            border: 1px solid #00f2ff;
+            margin: 20px 0;
+            background: #111;
+            position: relative;
+        }
+
+        .progress_fill {
+            width: 0%;
+            height: 100%;
+            background: #00f2ff;
+            box-shadow: 0 0 15px #00f2ff;
+            transition: width 0.1s linear;
+        }
+
+        .log_ekrani {
+            height: 100px;
+            background: #050505;
+            border: 1px solid #333;
+            font-size: 12px;
+            padding: 10px;
+            text-align: left;
+            overflow-y: hidden;
+            color: #00ff00; /* Hacker yeşili */
+        }
+
+        .buton {
+            background: transparent;
+            border: 1px solid #00f2ff;
+            color: #00f2ff;
+            padding: 10px 40px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .buton:disabled { color: #333; border-color: #333; }
+    </style>
+</head>
+<body>
+
+<div class="kurulum_kapsayici">
+    <h1>AuraOS v1.0 Kurulumu</h1>
+    <p>Hedef Sürücü: 16 GB SSD (Aura Partition)</p>
+    
+    <div class="log_ekrani" id="log">AuraOS Setup Başlatıldı...</div>
+    
+    <div class="progress_bar">
+        <div class="progress_fill" id="bar"></div>
+    </div>
+    
+    <div id="yuzde">Hazır: %0</div>
+
+    <button class="buton" id="baslatBtn" onclick="kurulumuBaslat()">KURULUMU BAŞLAT</button>
+</div>
+
+<script>
+    const loglar = [
+        "Sistem gereksinimleri kontrol ediliyor...",
+        "i3 işlemci optimizasyonu yapılıyor...",
+        "RAM (256MB) ayrılıyor...",
+        "Aura Çekirdeği (Kernel) kopyalanıyor...",
+        "Odak Noktası dosyaları yükleniyor...",
+        "Sürücüler yapılandırılıyor...",
+        "AuraOS 1.0 Kurulumu Tamamlandı!"
+    ];
+
+    function kurulumuBaslat() {
+        let bar = document.getElementById('bar');
+        let yuzdeText = document.getElementById('yuzde');
+        let logDiv = document.getElementById('log');
+        let btn = document.getElementById('baslatBtn');
+        let genislik = 0;
+        let logIndex = 0;
+
+        btn.disabled = true;
+
+        let interval = setInterval(() => {
+            if (genislik >= 100) {
+                clearInterval(interval);
+                yuzdeText.innerText = "Sistem Yeniden Başlatılıyor...";
+                setTimeout(() => alert("AuraOS Başarıyla Kuruldu!"), 1000);
+            } else {
+                genislik++;
+                bar.style.width = genislik + "%";
+                yuzdeText.innerText = "Hazır: %" + genislik;
+
+                // Logları sırayla göster
+                if (genislik % 15 === 0 && logIndex < loglar.length) {
+                    logDiv.innerHTML += "<br>> " + loglar[logIndex];
+                    logIndex++;
+                }
+            }
+        }, 80); // Kurulum hızı (i3 hızı gibi düşün!)
+    }
+</script>
+
+</body>
+</html>

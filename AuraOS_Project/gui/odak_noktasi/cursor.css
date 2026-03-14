@@ -1,0 +1,21 @@
+/* AuraOS Özel İmleç Tasarımı */
+.aura_cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #00f2ff; /* Aura Mavisi */
+    border-radius: 50% 50% 50% 0; /* Damla şeklinde fütüristik bir ok */
+    background: rgba(0, 242, 255, 0.2);
+    position: fixed;
+    pointer-events: none; /* Tıklamaları engellememesi için */
+    z-index: 9999;
+    box-shadow: 0 0 10px #00f2ff;
+    transform: rotate(-15deg);
+    transition: width 0.1s, height 0.1s; /* Tıklayınca küçülme efekti için */
+}
+
+/* Tıklandığında imleç tepki versin */
+.aura_cursor.active {
+    width: 15px;
+    height: 15px;
+    background: #00f2ff;
+}
